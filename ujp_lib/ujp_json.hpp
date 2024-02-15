@@ -6,12 +6,13 @@
 #include <string>
 
 namespace ujp {
-    
+    class Scanner;
     enum types {UJP_STRING = 1, UJP_NUMBER = 2, UJP_JSON = 3};
 
     class JSON{
 
         private:
+            bool parsed;
             std::vector<double> numbers;
             std::vector<std::string> strings;
             std::vector<JSON> objects;
@@ -19,6 +20,7 @@ namespace ujp {
         
         public:
             JSON(std::string json);
+            friend Scanner;
     };
 }
 

@@ -2,12 +2,21 @@
 #include <iostream>
 #include "ujp_exception.hpp"
 #include "ujp_utils.hpp"
+#include "ujp_json.hpp"
 
 using namespace ujp;
 bool Scanner::parse(JSON& json, std::istream& input){
     try
     {
-        Scanner::state1(json, input);
+        char c;
+        do
+            input >> c;
+        while (is_delimiter(c) && !input.eof());
+        
+        if (c == '{')
+            Scanner::state1(json, input);
+        else if (!input.eof())
+            throw badformat_Exception();
     }
     catch(const badformat_Exception& excep)
     {
@@ -18,5 +27,5 @@ bool Scanner::parse(JSON& json, std::istream& input){
 }
 
 void Scanner::state1(JSON& json, std::istream& input){
-    throw badformat_Exception();
+    std::cout << "good" << std::endl;
 }

@@ -3,7 +3,7 @@
 
 #include <map>
 #include <vector>
-#include <string>
+#include <istream>
 
 namespace ujp {
     class Scanner;
@@ -19,7 +19,8 @@ namespace ujp {
             std::map<std::string, std::pair<types, int>> map;
         
         public:
-            JSON(std::string json);
+            JSON();
+            JSON(std::istream& stream);
             friend Scanner;
     };
 }

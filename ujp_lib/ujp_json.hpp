@@ -12,7 +12,7 @@ namespace ujp {
     class JSON{
 
         private:
-            bool parsed;
+            int parseReturn;
             std::vector<double> numbers;
             std::vector<std::string> strings;
             std::vector<JSON> objects;

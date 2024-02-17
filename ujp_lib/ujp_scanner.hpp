@@ -12,8 +12,8 @@ namespace ujp{
             static int state2(JSON& json, std::istream& input, int count);
             static int state3(JSON& json, std::istream& input, int count, std::string& str);
             static int state4(JSON& json, std::istream& input, int count, std::string& str);
-            static int state5(JSON& json, std::istream& input, int count);
-            static int state6(JSON& json, std::istream& input, int count);
+            static int state5(JSON& json, std::istream& input, int count, std::string& str);
+            static int state6(JSON& json, std::istream& input, int count, std::string& str);
             static int state7(JSON& json, std::istream& input, int count);
             static int state8(JSON& json, std::istream& input, int count);
             static int state9(JSON& json, std::istream& input, int count);

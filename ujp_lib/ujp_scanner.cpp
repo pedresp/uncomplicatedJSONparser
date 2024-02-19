@@ -82,5 +82,22 @@ int Scanner::state6(JSON& json, std::istream& input, int count, std::string& key
 }
 
 int Scanner::state8(JSON& json, std::istream& input, int count){
-    return 0;
+    char c;
+    omit_delimiters(input, c);
+
+    if (c == '}')
+        return 0;
+    else if (c == ',')
+        return Scanner::state11(json, input, count);
+        
+    return 2;
+}
+
+int Scanner::state11(JSON& json, std::istream& input, int count){
+    char c;
+    omit_delimiters(input, c);
+
+    if (c == '\"')
+        return Scanner::state2(json, input, count);
+    return 2;    
 }

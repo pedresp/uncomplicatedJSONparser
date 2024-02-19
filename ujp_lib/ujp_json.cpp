@@ -16,6 +16,10 @@ std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap(){
     return map;
 }
 
+std::vector<double> ujp::JSON::getNumber(){
+    return numbers;
+}
+
 std::ostream& ujp::operator<<(std::ostream& co, ujp::types type){
     switch (type)
         {

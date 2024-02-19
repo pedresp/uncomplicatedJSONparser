@@ -23,6 +23,7 @@ namespace ujp {
             JSON();
             JSON(std::istream& stream);
             std::vector<std::string> getString();
+            std::vector<double> getNumber();
             std::map<std::string, std::pair<types, int>> getMap();
             friend Scanner;
     };

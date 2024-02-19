@@ -15,10 +15,10 @@ namespace ujp{
             static parserStates state4(JSON& json, std::istream& input, int count, std::string& str);
             static parserStates state5(JSON& json, std::istream& input, int count, std::string& str);
             static parserStates state6(JSON& json, std::istream& input, int count, std::string& str);
-            static parserStates state7(JSON& json, std::istream& input, int count);
+            static parserStates state7(JSON& json, std::istream& input, int count, std::string& str);
             static parserStates state8(JSON& json, std::istream& input, int count);
-            static parserStates state9(JSON& json, std::istream& input, int count);
-            static parserStates state10(JSON& json, std::istream& input, int count);
+            static parserStates state9(JSON& json, std::istream& input, int count, std::string& str);
+            static parserStates state10(JSON& json, std::istream& input, int count, std::string& str);
             static parserStates state11(JSON& json, std::istream& input, int count);
             static parserStates state12(JSON& json, std::istream& input, int count);
         public:

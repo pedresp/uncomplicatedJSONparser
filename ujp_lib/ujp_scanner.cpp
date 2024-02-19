@@ -5,29 +5,29 @@
 #include "ujp_json.hpp"
 
 using namespace ujp;
-int Scanner::parse(JSON& json, std::istream& input){
+parserStates Scanner::parse(JSON& json, std::istream& input){
     char c;
     omit_delimiters(input, c);
         
     if (c == '{')
         return Scanner::state1(json, input);
     else if (input.eof())
-        return 1;
-    return 2;
+        return NO_BRACES_CLOSED;
+    return UNEXPECTED_CHAR;
 }
 
-int Scanner::state1(JSON& json, std::istream& input){
+parserStates Scanner::state1(JSON& json, std::istream& input){
     char car;
     omit_delimiters(input, car);
 
     if (car == '\"')
         return Scanner::state2(json, input, 1);
     else if (input.eof())
-        return 1;
-    return 2;
+        return NO_BRACES_CLOSED;
+    return UNEXPECTED_CHAR;
 }
 
-int Scanner::state2(JSON& json, std::istream& input, int count){
+parserStates Scanner::state2(JSON& json, std::istream& input, int count){
     std::string key;
     char c;
     input >> c;
@@ -37,23 +37,23 @@ int Scanner::state2(JSON& json, std::istream& input, int count){
     }
     if (c == '\"')
         return Scanner::state3(json, input, count, key);            
-    return 3;
+    return UNCOMPLETED_JSON;
 }
 
-int Scanner::state3(JSON& json, std::istream& input, int count, std::string& key){
+parserStates Scanner::state3(JSON& json, std::istream& input, int count, std::string& key){
     if (json.map.count(key) > 0)
-        return 4;
+        return DUPLICATED_KEY;
     char c;
     omit_delimiters(input, c);
 
     if (c == ':')
         return Scanner::state4(json, input, count, key);
     else if (input.eof())
-        return 3;        
-    return 2;
+        return UNCOMPLETED_JSON;     
+    return UNEXPECTED_CHAR;
 }
 
-int Scanner::state4(JSON& json, std::istream& input, int count, std::string& key){
+parserStates Scanner::state4(JSON& json, std::istream& input, int count, std::string& key){
     char c;
     omit_delimiters(input, c);
 
@@ -63,10 +63,10 @@ int Scanner::state4(JSON& json, std::istream& input, int count, std::string& key
         json.strings.push_back(my_str);
         return Scanner::state6(json, input, count, key);    
     }
-    return 2;
+    return UNEXPECTED_CHAR;
 }
 
-int Scanner::state6(JSON& json, std::istream& input, int count, std::string& key){
+parserStates Scanner::state6(JSON& json, std::istream& input, int count, std::string& key){
     char c;
     int pos = json.map[key].second;
     input >> c;
@@ -78,10 +78,10 @@ int Scanner::state6(JSON& json, std::istream& input, int count, std::string& key
     
     if (c == '\"')
         return Scanner::state8(json, input, count);
-    return 3;    
+    return UNCOMPLETED_JSON;    
 }
 
-int Scanner::state8(JSON& json, std::istream& input, int count){
+parserStates Scanner::state8(JSON& json, std::istream& input, int count){
     char c;
     omit_delimiters(input, c);
 
@@ -90,18 +90,18 @@ int Scanner::state8(JSON& json, std::istream& input, int count){
     else if (c == ',')
         return Scanner::state11(json, input, count);
         
-    return 2;
+    return UNEXPECTED_CHAR;
 }
 
-int Scanner::state11(JSON& json, std::istream& input, int count){
+parserStates Scanner::state11(JSON& json, std::istream& input, int count){
     char c;
     omit_delimiters(input, c);
 
     if (c == '\"')
         return Scanner::state2(json, input, count);
-    return 2;    
+    return UNEXPECTED_CHAR;    
 }
 
-int Scanner::state12(JSON& json, std::istream& input, int count){
-    return 0;
+parserStates Scanner::state12(JSON& json, std::istream& input, int count){
+    return CORRECT_PARSER;
 }

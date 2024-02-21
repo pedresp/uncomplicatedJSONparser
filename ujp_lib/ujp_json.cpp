@@ -8,6 +8,15 @@ ujp::JSON::JSON(){
     this->parseReturn = NO_PREV_PARSER;
 }
 
+void ujp::JSON::flush(){
+    this->map.clear();
+    this->numbers.clear();
+    this->strings.clear();
+    this->objects.clear();
+
+    this->parseReturn = NO_PREV_PARSER;
+}
+
 std::vector<std::string> ujp::JSON::getString(){
     return strings;
 }

@@ -26,6 +26,7 @@ namespace ujp {
             std::vector<double> getNumber();
             std::map<std::string, std::pair<types, int>> getMap();
             friend Scanner;
+            void flush();
     };
 
     std::ostream& operator<<(std::ostream& co, types type);

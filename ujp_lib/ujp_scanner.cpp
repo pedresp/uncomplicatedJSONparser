@@ -10,11 +10,16 @@ using namespace ujp;
 parserStates Scanner::parse(JSON& json, std::istream& input){
     char c;
     omit_delimiters(input, c);
-        
-    if (c == '{')
-        return Scanner::state1(json, input);
+    parserStates ps;
+
+    if (c == '{'){
+        ps = Scanner::state1(json, input);
+        if (ps != CORRECT_PARSER)
+            json.flush();
+        return ps;        
+    }
     else if (input.eof())
-        return NO_BRACES_CLOSED;
+        return CORRECT_PARSER;
     return UNEXPECTED_CHAR;
 }
 

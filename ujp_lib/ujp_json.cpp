@@ -31,18 +31,45 @@ std::vector<double> ujp::JSON::getNumber(){
 
 std::ostream& ujp::operator<<(std::ostream& co, ujp::types type){
     switch (type)
-        {
-        case UJP_STRING:
-            co << "UJP_STRING";
-            break;
-        case UJP_NUMBER:
-            co << "UJP_NUMBER";
-            break;
-        case UJP_JSON:
-            co << "UJP_JSON";
-            break;
-        default:
-            break;
-        }
-        return co;
-} 
+    {
+    case UJP_STRING:
+        co << "UJP_STRING";
+        break;
+    case UJP_NUMBER:
+        co << "UJP_NUMBER";
+        break;
+    case UJP_JSON:
+        co << "UJP_JSON";
+        break;
+    default:
+        break;
+    }
+    return co;
+}
+
+std::ostream& ujp::operator<<(std::ostream& co, ujp::parserStates ps){
+    switch (ps)
+    {
+    case NO_PREV_PARSER:
+        co << "NO_PREV_PARSER";
+        break;
+    case CORRECT_PARSER:
+        co << "CORRECT_PARSER";
+        break;
+    case NO_BRACES_CLOSED:
+        co << "NO_BRACES_CLOSED";
+        break;
+    case UNEXPECTED_CHAR:
+        co << "UNEXPECTED_CHAR";
+        break;
+    case UNCOMPLETED_JSON:
+        co << "UNCOMPLETED_JSON";
+        break;
+    case DUPLICATED_KEY:
+        co << "DUPLICATED_KEY";
+        break;
+    default:
+        break;
+    }
+    return co;
+}

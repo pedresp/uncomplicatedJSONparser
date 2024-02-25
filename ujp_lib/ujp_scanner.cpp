@@ -9,7 +9,10 @@
 using namespace ujp;
 parserStates Scanner::parse(JSON& json, std::istream& input){
     char c;
-    omit_delimiters(input, c);
+    input >> c;
+
+    std::cout << c;
+
     parserStates ps;
     std::stack<JSON*> stack;
 
@@ -27,7 +30,9 @@ parserStates Scanner::parse(JSON& json, std::istream& input){
 
 parserStates Scanner::state1(std::stack<JSON*>& stack, std::istream& input){
     char car;
-    omit_delimiters(input, car);
+    input >> car;
+
+    std::cout << car;
 
     if (car == '\"')
         return Scanner::state2(stack, input);
@@ -39,10 +44,15 @@ parserStates Scanner::state1(std::stack<JSON*>& stack, std::istream& input){
 parserStates Scanner::state2(std::stack<JSON*>& stack, std::istream& input){
     std::string key;
     char c;
-    input >> c;
+    input.get(c);
+
+    std::cout << c;
+
     while (c != '\"' && !input.eof()){
         key.push_back(c);
-        input >> c;
+        input.get(c);
+
+        std::cout << c;
     }
     if (c == '\"')
         return Scanner::state3(stack, input, key);            
@@ -54,7 +64,9 @@ parserStates Scanner::state3(std::stack<JSON*>& stack, std::istream& input, std:
     if (json.map.count(key) > 0)
         return DUPLICATED_KEY;
     char c;
-    omit_delimiters(input, c);
+    input >> c;
+
+    std::cout << c;
 
     if (c == ':')
         return Scanner::state4(stack, input, key);
@@ -66,7 +78,9 @@ parserStates Scanner::state3(std::stack<JSON*>& stack, std::istream& input, std:
 parserStates Scanner::state4(std::stack<JSON*>& stack, std::istream& input, std::string& key){
     JSON& json = *stack.top();
     char c;
-    omit_delimiters(input, c);
+    input >> c;
+
+    std::cout << c;
 
     if (c == '\"'){
         std::string my_str;
@@ -87,11 +101,16 @@ parserStates Scanner::state6(std::stack<JSON*>& stack, std::istream& input, std:
     JSON& json = *stack.top();
     char c;
     int pos = json.map[key].second;
-    input >> c;
+    input.get(c);
+
+    std::cout << c;
+
     while (c != '\"' && !input.eof())
     {
         json.strings[pos].push_back(c);
-        input >> c;
+        input.get(c);
+    
+        std::cout << c;
     }
     
     if (c == '\"')
@@ -103,26 +122,37 @@ parserStates Scanner::state7(std::stack<JSON*>& stack, std::istream& input, std:
     JSON& json = *stack.top();
     char my_numb;
     int pos = json.map[key].second;
-    input >> my_numb;
-    while (is_digit(my_numb))
-    {
+    input.get(my_numb);
+
+    std::cout << my_numb;
+
+    while (is_digit(my_numb)) {
         json.numbers[pos] = 10*json.numbers[pos] + my_numb-48;
-        input >> my_numb;
+        input.get(my_numb);
+    
+        std::cout << my_numb;
     }
+
+    if (my_numb == '.')
+        return Scanner::state9(stack, input, key);
+
+    if (is_delimiter(my_numb))
+        input >> my_numb;    
+    std::cout << my_numb;
 
     if (my_numb == '}')
         return Scanner::state12(stack, input);
     else if (my_numb == ',')
         return Scanner::state11(stack, input);
-    else if (my_numb == '.')
-        return Scanner::state9(stack, input, key);
     return UNEXPECTED_CHAR;
     
 }
 
 parserStates Scanner::state8(std::stack<JSON*>& stack, std::istream& input){
     char c;
-    omit_delimiters(input, c);
+    input >> c;
+
+    std::cout << c;
 
     if (c == '}')
         return Scanner::state12(stack, input);
@@ -135,7 +165,10 @@ parserStates Scanner::state8(std::stack<JSON*>& stack, std::istream& input){
 parserStates Scanner::state9(std::stack<JSON*>& stack, std::istream& input, std::string& key){
     JSON& json = *stack.top();
     char c;
-    input >> c;
+    input.get(c);
+
+    std::cout << c;
+
     if (is_digit(c))
     {
         json.numbers[json.map[key].second] = json.numbers[json.map[key].second] + (c-48)*0.1;
@@ -148,12 +181,21 @@ parserStates Scanner::state10(std::stack<JSON*>& stack, std::istream& input, std
     JSON& json = *stack.top();
     char c;
     int pos = json.map[key].second;
-    input >> c;
+    input.get(c);
+
+    std::cout << c;
+
     for (int i = -2; is_digit(c); i--){
         json.numbers[pos] = json.numbers[pos] + pow(10, i)*(c-48);
-        input >> c;
+        input.get(c);
+
+        std::cout << c;
     }
-    
+
+    if (is_delimiter(c))
+        input >> c;
+    std::cout << c;
+
     if (c == '}')
         return Scanner::state12(stack, input);
     else if (c == ',')
@@ -164,13 +206,18 @@ parserStates Scanner::state10(std::stack<JSON*>& stack, std::istream& input, std
 
 parserStates Scanner::state11(std::stack<JSON*>& stack, std::istream& input){
     char c;
-    omit_delimiters(input, c);
+    input >> c;
+
+    std::cout << c;
 
     if (c == '\"')
         return Scanner::state2(stack, input);
-    return UNEXPECTED_CHAR;    
+    return UNEXPECTED_CHAR;
 }
 
 parserStates Scanner::state12(std::stack<JSON*>& stack, std::istream& input){
+
+    std::cout << std::endl;
+
     return CORRECT_PARSER;
 }

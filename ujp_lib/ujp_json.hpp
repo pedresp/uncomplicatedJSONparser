@@ -8,6 +8,7 @@
 namespace ujp
 {
     class Scanner;
+    class JSON;
     enum types
     {
         UJP_STRING = 1,
@@ -21,8 +22,11 @@ namespace ujp
         NO_BRACES_CLOSED = 1,
         UNEXPECTED_CHAR = 2,
         UNCOMPLETED_JSON = 3,
-        DUPLICATED_KEY = 4
+        DUPLICATED_KEY = 4,
+        EXCESSIVE_RIGHT_BRACES = 5
     };
+
+    std::ostream& operator<<(std::ostream &co, const JSON& json);
 
     class JSON
     {
@@ -42,6 +46,7 @@ namespace ujp
         std::map<std::string, std::pair<types, int>> getMap();
         friend Scanner;
         void flush();
+        friend std::ostream& operator<<(std::ostream &co, const JSON& json);
     };
 
     std::ostream &operator<<(std::ostream &co, types type);

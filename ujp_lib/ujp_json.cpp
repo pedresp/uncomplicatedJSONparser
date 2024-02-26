@@ -29,6 +29,20 @@ std::vector<double> ujp::JSON::getNumber(){
     return numbers;
 }
 
+std::ostream& ujp::operator<<(std::ostream& co, const ujp::JSON& json){
+    co << "\n---------- JSON START ----------" << std::endl;
+    for (auto it = json.map.begin(); it != json.map.end(); it++){
+        if (it->second.first == UJP_JSON)
+            co << "key: " << it->first << " value: " << json.objects[it->second.second] << std::endl;
+        else if (it->second.first == UJP_NUMBER)
+            co << "key: " << it->first << " value: " << json.numbers[it->second.second] << std::endl;
+        else if (it->second.first == UJP_STRING)
+            co << "key: " << it->first << " value: " << json.strings[it->second.second] << std::endl;
+    }
+    co << "---------- JSON END ----------" << std::endl;
+    return co;
+}
+
 std::ostream& ujp::operator<<(std::ostream& co, ujp::types type){
     switch (type)
     {
@@ -67,6 +81,9 @@ std::ostream& ujp::operator<<(std::ostream& co, ujp::parserStates ps){
         break;
     case DUPLICATED_KEY:
         co << "DUPLICATED_KEY";
+        break;
+    case EXCESSIVE_RIGHT_BRACES:
+        co << "EXECESSIVE_RIGHT_BRACES";
         break;
     default:
         break;

@@ -3,11 +3,11 @@
 
 #include <exception>
 
-namespace ujp{
-    class badformat_Exception : public std::exception{
-        public:
-            badformat_Exception(){}
-    };
-}
+namespace ujp {
+class badformat_Exception : public std::exception {
+public:
+  badformat_Exception() {}
+};
+} // namespace ujp
 
 #endif

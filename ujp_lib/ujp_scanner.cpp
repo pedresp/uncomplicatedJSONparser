@@ -234,7 +234,8 @@ parserStates Scanner::state12(std::stack<JSON *> &stack, std::istream &input) {
   char c;
   input >> c;
 
-  std::cout << c;
+  if (!input.eof())
+    std::cout << c;
 
   if (c == ',')
     return Scanner::state1(stack, input);

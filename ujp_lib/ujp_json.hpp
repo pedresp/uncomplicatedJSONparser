@@ -29,16 +29,19 @@ private:
   std::vector<std::string> strings;
   std::vector<JSON> objects;
   std::map<std::string, std::pair<types, int>> map;
+  void to_string(std::string &str, int count);
 
 public:
   JSON();
   JSON(std::istream &stream);
   std::vector<std::string> getString();
   std::vector<double> getNumber();
+  std::vector<JSON> getJSON();
   std::map<std::string, std::pair<types, int>> getMap();
   friend Scanner;
   void flush();
   friend std::ostream &operator<<(std::ostream &co, const JSON &json);
+  std::string to_string();
 };
 
 std::ostream &operator<<(std::ostream &co, types type);

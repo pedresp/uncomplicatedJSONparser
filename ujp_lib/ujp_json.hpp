@@ -34,9 +34,11 @@ private:
 public:
   JSON();
   JSON(std::istream &stream);
-  std::vector<std::string> getString();
-  std::vector<double> getNumber();
-  std::vector<JSON> getJSON();
+
+  double getNumber(std::string);
+  std::string getString(std::string);
+  JSON getJSON(std::string);
+
   std::map<std::string, std::pair<types, int>> getMap();
   friend Scanner;
   void flush();

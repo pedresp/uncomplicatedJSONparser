@@ -1,4 +1,5 @@
 #include "ujp_json.hpp"
+#include "ujp_exception.hpp"
 #include "ujp_scanner.hpp"
 #include "ujp_utils.hpp"
 
@@ -16,13 +17,25 @@ void ujp::JSON::flush() {
   this->parseReturn = NO_PREV_PARSER;
 }
 
-std::vector<std::string> ujp::JSON::getString() { return strings; }
+double ujp::JSON::getNumber(std::string s) {
+  if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_NUMBER)
+    throw Key_Error();
+  return this->numbers[this->map.at(s).second];
+}
+
+std::string ujp::JSON::getString(std::string s) {
+  if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_STRING)
+    throw Key_Error();
+  return this->strings[this->map.at(s).second];
+}
+
+ujp::JSON ujp::JSON::getJSON(std::string s) {
+  if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_JSON)
+    throw Key_Error();
+  return this->objects[this->map.at(s).second];
+}
 
 std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() { return map; }
-
-std::vector<double> ujp::JSON::getNumber() { return numbers; }
-
-std::vector<ujp::JSON> ujp::JSON::getJSON() { return objects; }
 
 std::string ujp::JSON::to_string() {
   std::string str = "{";

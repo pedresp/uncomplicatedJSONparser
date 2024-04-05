@@ -35,6 +35,40 @@ ujp::JSON ujp::JSON::getJSON(std::string s) {
   return this->objects[this->map.at(s).second];
 }
 
+bool ujp::JSON::setNumber(std::string s, double num) {
+  if (this->map.count(s) && this->map.at(s).first == UJP_NUMBER) {
+    this->numbers[this->map.at(s).second] = num;
+  } else if (this->map.count(s) == 0) {
+    this->map.insert(std::make_pair(s, std::make_pair(ujp::UJP_NUMBER, this->numbers.size())));
+    this->numbers.push_back(num);
+  } else
+    return false;
+
+  return true;
+}
+
+bool ujp::JSON::setString(std::string s, std::string str) {
+  if (this->map.count(s) && this->map.at(s).first == UJP_STRING) {
+    this->strings[this->map.at(s).second] = str;
+  } else if (this->map.count(s) == 0) {
+    this->map.insert(std::make_pair(s, std::make_pair(ujp::UJP_STRING, this->strings.size())));
+    this->strings.push_back(str);
+  } else
+    return false;
+  return true;
+}
+
+bool ujp::JSON::setJSON(std::string s, ujp::JSON &json) {
+  if (this->map.count(s) && this->map.at(s).first == UJP_JSON) {
+    this->objects[this->map.at(s).second] = json;
+  } else if (this->map.count(s) == 0) {
+    this->map.insert(std::make_pair(s, std::make_pair(ujp::UJP_JSON, this->objects.size())));
+    this->objects.push_back(json);
+  } else
+    return false;
+  return true;
+}
+
 std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() { return map; }
 
 std::string ujp::JSON::to_string() {

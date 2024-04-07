@@ -31,7 +31,7 @@ private:
   std::vector<std::string> strings;
   std::vector<JSON> objects;
   std::map<std::string, std::pair<types, int>> map;
-  void to_string(int ident, std::string &str, int count);
+  void to_string(int ident, std::string &str, int count) const;
 
 public:
   JSON();
@@ -48,8 +48,7 @@ public:
   std::map<std::string, std::pair<types, int>> getMap();
   friend Scanner;
   void flush();
-  friend std::ostream &operator<<(std::ostream &co, const JSON &json);
-  std::string to_string(int ident = N_SPACES);
+  std::string to_string(int ident = N_SPACES) const;
 };
 
 std::ostream &operator<<(std::ostream &co, types type);

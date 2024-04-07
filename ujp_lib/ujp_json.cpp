@@ -69,13 +69,13 @@ bool ujp::JSON::setJSON(std::string s, ujp::JSON &json) {
 
 std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() { return map; }
 
-std::string ujp::JSON::to_string(int ident) {
+std::string ujp::JSON::to_string(int ident) const {
   std::string str = "";
   this->to_string(ident, str, 0);
   return str;
 }
 
-void ujp::JSON::to_string(int ident, std::string &str, int count) {
+void ujp::JSON::to_string(int ident, std::string &str, int count) const {
   str.append("{");
   bool elem = false;
 
@@ -106,16 +106,7 @@ void ujp::JSON::to_string(int ident, std::string &str, int count) {
 }
 
 std::ostream &ujp::operator<<(std::ostream &co, const ujp::JSON &json) {
-  co << "\n---------- JSON START ----------" << std::endl;
-  for (auto it = json.map.begin(); it != json.map.end(); it++) {
-    if (it->second.first == UJP_JSON)
-      co << "key: " << it->first << " value: " << json.objects[it->second.second] << std::endl;
-    else if (it->second.first == UJP_NUMBER)
-      co << "key: " << it->first << " value: " << json.numbers[it->second.second] << std::endl;
-    else if (it->second.first == UJP_STRING)
-      co << "key: " << it->first << " value: " << json.strings[it->second.second] << std::endl;
-  }
-  co << "---------- JSON END ----------" << std::endl;
+  co << json.to_string() << std::endl;
   return co;
 }
 

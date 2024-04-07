@@ -11,7 +11,7 @@ parserStates Scanner::parse(JSON &json, std::istream &input) {
   char c;
   input >> c;
 
-  std::cout << c;
+  // std::cout << c;
 
   parserStates ps;
   std::stack<JSON *> stack;
@@ -22,7 +22,7 @@ parserStates Scanner::parse(JSON &json, std::istream &input) {
     if (ps != CORRECT_PARSER)
       json.flush();
 
-    std::cout << std::endl;
+    // std::cout << std::endl;
 
     return ps;
   } else if (input.eof())
@@ -34,7 +34,7 @@ parserStates Scanner::state1(std::stack<JSON *> &stack, std::istream &input) {
   char car;
   input >> car;
 
-  std::cout << car;
+  // std::cout << car;
 
   if (car == '\"')
     return Scanner::state2(stack, input);
@@ -48,13 +48,13 @@ parserStates Scanner::state2(std::stack<JSON *> &stack, std::istream &input) {
   char c;
   input.get(c);
 
-  std::cout << c;
+  // std::cout << c;
 
   while (c != '\"' && !input.eof()) {
     key.push_back(c);
     input.get(c);
 
-    std::cout << c;
+    // std::cout << c;
   }
   if (c == '\"')
     return Scanner::state3(stack, input, key);
@@ -68,7 +68,7 @@ parserStates Scanner::state3(std::stack<JSON *> &stack, std::istream &input, std
   char c;
   input >> c;
 
-  std::cout << c;
+  // std::cout << c;
 
   if (c == ':')
     return Scanner::state4(stack, input, key);
@@ -82,7 +82,7 @@ parserStates Scanner::state4(std::stack<JSON *> &stack, std::istream &input, std
   char c;
   input >> c;
 
-  std::cout << c;
+  // std::cout << c;
 
   if (c == '\"') {
     std::string my_str;
@@ -109,13 +109,13 @@ parserStates Scanner::state6(std::stack<JSON *> &stack, std::istream &input, std
   int pos = json.map[key].second;
   input.get(c);
 
-  std::cout << c;
+  // std::cout << c;
 
   while (c != '\"' && !input.eof()) {
     json.strings[pos].push_back(c);
     input.get(c);
 
-    std::cout << c;
+    // std::cout << c;
   }
 
   if (c == '\"')
@@ -129,13 +129,13 @@ parserStates Scanner::state7(std::stack<JSON *> &stack, std::istream &input, std
   int pos = json.map[key].second;
   input.get(my_numb);
 
-  std::cout << my_numb;
+  // std::cout << my_numb;
 
   while (is_digit(my_numb)) {
     json.numbers[pos] = 10 * json.numbers[pos] + my_numb - 48;
     input.get(my_numb);
 
-    std::cout << my_numb;
+    // std::cout << my_numb;
   }
 
   if (my_numb == '.')
@@ -143,7 +143,7 @@ parserStates Scanner::state7(std::stack<JSON *> &stack, std::istream &input, std
 
   if (is_delimiter(my_numb))
     input >> my_numb;
-  std::cout << my_numb;
+  // std::cout << my_numb;
 
   if (my_numb == '}') {
     if (stack.empty())
@@ -160,7 +160,7 @@ parserStates Scanner::state8(std::stack<JSON *> &stack, std::istream &input) {
   char c;
   input >> c;
 
-  std::cout << c;
+  // std::cout << c;
 
   if (c == '}') {
     if (stack.empty())
@@ -179,7 +179,7 @@ parserStates Scanner::state9(std::stack<JSON *> &stack, std::istream &input, std
   char c;
   input.get(c);
 
-  std::cout << c;
+  // std::cout << c;
 
   if (is_digit(c)) {
     json.numbers[json.map[key].second] = json.numbers[json.map[key].second] + (c - 48) * 0.1;
@@ -194,18 +194,18 @@ parserStates Scanner::state10(std::stack<JSON *> &stack, std::istream &input, st
   int pos = json.map[key].second;
   input.get(c);
 
-  std::cout << c;
+  // std::cout << c;
 
   for (int i = -2; is_digit(c); i--) {
     json.numbers[pos] = json.numbers[pos] + pow(10, i) * (c - 48);
     input.get(c);
 
-    std::cout << c;
+    // std::cout << c;
   }
 
   if (is_delimiter(c))
     input >> c;
-  std::cout << c;
+  // std::cout << c;
 
   if (c == '}') {
     if (stack.empty())
@@ -223,7 +223,7 @@ parserStates Scanner::state11(std::stack<JSON *> &stack, std::istream &input) {
   char c;
   input >> c;
 
-  std::cout << c;
+  // std::cout << c;
 
   if (c == '\"')
     return Scanner::state2(stack, input);
@@ -234,8 +234,8 @@ parserStates Scanner::state12(std::stack<JSON *> &stack, std::istream &input) {
   char c;
   input >> c;
 
-  if (!input.eof())
-    std::cout << c;
+  // if (!input.eof())
+  //  std::cout << c;
 
   if (c == ',')
     return Scanner::state1(stack, input);

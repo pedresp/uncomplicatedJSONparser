@@ -106,7 +106,7 @@ void ujp::JSON::to_string(int ident, std::string &str, int count) const {
 }
 
 std::ostream &ujp::operator<<(std::ostream &co, const ujp::JSON &json) {
-  co << json.to_string() << std::endl;
+  co << json.to_string();
   return co;
 }
 

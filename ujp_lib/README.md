@@ -41,7 +41,7 @@ will throw a KeyError exception.
 Returns the std::string value associated to the key passed as an argument. If the key does not exist or has another value type the method
 will throw a KeyError exception.
 
-### JSON getJSON(std::string) const
+### JSON& getJSON(std::string)
 Returns the JSON value associated to the key passed as an argument. If the key does not exist or has another value type the method
 will throw a KeyError exception.
 

@@ -5,6 +5,8 @@
 #include <map>
 #include <vector>
 
+#define N_SPACES 4
+
 namespace ujp {
 class Scanner;
 class JSON;
@@ -29,7 +31,7 @@ private:
   std::vector<std::string> strings;
   std::vector<JSON> objects;
   std::map<std::string, std::pair<types, int>> map;
-  void to_string(std::string &str, int count);
+  void to_string(int ident, std::string &str, int count);
 
 public:
   JSON();
@@ -47,7 +49,7 @@ public:
   friend Scanner;
   void flush();
   friend std::ostream &operator<<(std::ostream &co, const JSON &json);
-  std::string to_string();
+  std::string to_string(int ident = N_SPACES);
 };
 
 std::ostream &operator<<(std::ostream &co, types type);

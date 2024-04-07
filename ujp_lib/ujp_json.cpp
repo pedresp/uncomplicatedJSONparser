@@ -27,7 +27,7 @@ std::string ujp::JSON::getString(std::string s) const {
   return this->strings[this->map.at(s).second];
 }
 
-ujp::JSON ujp::JSON::getJSON(std::string s) const {
+ujp::JSON &ujp::JSON::getJSON(std::string s) {
   if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_JSON)
     throw Key_Error();
   return this->objects[this->map.at(s).second];

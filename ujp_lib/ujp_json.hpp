@@ -39,7 +39,7 @@ public:
 
   double getNumber(std::string) const;
   std::string getString(std::string) const;
-  JSON getJSON(std::string) const;
+  JSON &getJSON(std::string);
 
   bool setNumber(std::string, double);
   bool setString(std::string, std::string);

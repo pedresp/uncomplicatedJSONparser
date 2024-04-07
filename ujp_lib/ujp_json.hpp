@@ -37,15 +37,15 @@ public:
   JSON();
   JSON(std::istream &stream);
 
-  double getNumber(std::string);
-  std::string getString(std::string);
-  JSON getJSON(std::string);
+  double getNumber(std::string) const;
+  std::string getString(std::string) const;
+  JSON getJSON(std::string) const;
 
   bool setNumber(std::string, double);
   bool setString(std::string, std::string);
   bool setJSON(std::string, ujp::JSON &);
 
-  std::map<std::string, std::pair<types, int>> getMap();
+  std::map<std::string, std::pair<types, int>> getMap() const;
   friend Scanner;
   void flush();
   std::string to_string(int ident = N_SPACES) const;

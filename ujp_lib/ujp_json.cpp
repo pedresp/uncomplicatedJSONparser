@@ -15,19 +15,19 @@ void ujp::JSON::flush() {
   this->parseReturn = NO_PREV_PARSER;
 }
 
-double ujp::JSON::getNumber(std::string s) {
+double ujp::JSON::getNumber(std::string s) const {
   if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_NUMBER)
     throw Key_Error();
   return this->numbers[this->map.at(s).second];
 }
 
-std::string ujp::JSON::getString(std::string s) {
+std::string ujp::JSON::getString(std::string s) const {
   if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_STRING)
     throw Key_Error();
   return this->strings[this->map.at(s).second];
 }
 
-ujp::JSON ujp::JSON::getJSON(std::string s) {
+ujp::JSON ujp::JSON::getJSON(std::string s) const {
   if (!this->map.count(s) || this->map.at(s).first != ujp::types::UJP_JSON)
     throw Key_Error();
   return this->objects[this->map.at(s).second];
@@ -67,7 +67,7 @@ bool ujp::JSON::setJSON(std::string s, ujp::JSON &json) {
   return true;
 }
 
-std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() { return map; }
+std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() const { return map; }
 
 std::string ujp::JSON::to_string(int ident) const {
   std::string str = "";

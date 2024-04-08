@@ -67,8 +67,6 @@ bool ujp::JSON::setJSON(std::string s, ujp::JSON &json) {
   return true;
 }
 
-std::map<std::string, std::pair<ujp::types, int>> ujp::JSON::getMap() const { return map; }
-
 std::string ujp::JSON::to_string(int ident) const {
   std::string str = "";
   this->to_string(ident, str, 0);

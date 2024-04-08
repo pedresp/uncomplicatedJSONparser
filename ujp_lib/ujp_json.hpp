@@ -45,7 +45,6 @@ public:
   bool setString(std::string, std::string);
   bool setJSON(std::string, ujp::JSON &);
 
-  std::map<std::string, std::pair<types, int>> getMap() const;
   friend Scanner;
   void flush();
   std::string to_string(int ident = N_SPACES) const;

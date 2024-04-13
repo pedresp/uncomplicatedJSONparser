@@ -3,7 +3,7 @@
 #include "ujp_scanner.hpp"
 #include "ujp_utils.hpp"
 
-ujp::JSON::JSON(std::istream &stream) { this->parseReturn = Scanner::parse(*this, stream); }
+ujp::JSON::JSON(std::istream &stream) { Scanner::parse(*this, stream); }
 ujp::JSON::JSON() { this->parseReturn = NO_PREV_PARSER; }
 
 void ujp::JSON::flush() {

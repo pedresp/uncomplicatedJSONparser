@@ -13,7 +13,7 @@ parserStates Scanner::parse(JSON &json, std::istream &input) {
 
   // std::cout << c;
 
-  parserStates ps;
+  parserStates ps = UNEXPECTED_CHAR;
   std::stack<JSON *> stack;
 
   if (c == '{') {
@@ -23,10 +23,12 @@ parserStates Scanner::parse(JSON &json, std::istream &input) {
       json.flush();
 
     // std::cout << std::endl;
-
+    json.parseReturn = ps;
     return ps;
   } else if (input.eof())
     return CORRECT_PARSER;
+
+  json.parseReturn = ps;
   return UNEXPECTED_CHAR;
 }
 

@@ -14,5 +14,7 @@ endif()
 add_subdirectory(ujp_lib)
 
 add_executable(main main.cpp)
+add_executable(failed_parser examples/failed_parser.cpp)
 
 target_link_libraries(main PRIVATE ujp_lib)
+target_link_libraries(failed_parser PRIVATE ujp_lib)

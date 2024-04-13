@@ -7,13 +7,22 @@ It is not currently completed and it does not allow the parse of json files that
 
 ## Getting started
 
-To use it on your proyect you need to include the **ujp_lib/** directory and link the library with the executable where you need to use it.
+To use it on your proyect you need to include the `ujp_lib/` directory and link the library with the executable where you need to use it.
 
-To do so, in the **ujp_lib/** directory, a CMakeLists.txt file is stored to define the library and allow other CMakeLists.txt files to call it and in order to use the library.
+To do so, in the `ujp_lib/` directory, a CMakeLists.txt file is stored to define the library and allow other CMakeLists.txt files to call it and in order to use the library.
 
-To get used to the library, I have included a file *main.cpp* where there are explained some of the methods and uses of the library. In order to
+To get used to the library, I have included a file `main.cpp` where there are explained some of the methods and uses of the library. In order to
 successfully run it, you need to compile it using the CMakeLists.txt file.
-The executable produced should be executed at the same level as the main.cpp file, so it can find the path to json_files/file0.json
+
+I recommed doing the following command to execute it:
+
+    ./main < json_files/file1.json
+
+The main executable should be executed at the same level as the `main.cpp` file, so it can find the path to `json_files/file1.json`.
+
+## Examples
+
+Inside the `examples/` folder you can find more uses and scenarios to help you understanding and learning how to use UJP.
 
 ## License
 

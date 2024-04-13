@@ -67,6 +67,8 @@ bool ujp::JSON::setJSON(std::string s, ujp::JSON &json) {
   return true;
 }
 
+ujp::parserStates ujp::JSON::getParserReturn() { return this->parseReturn; }
+
 std::string ujp::JSON::to_string(int ident) const {
   std::string str = "";
   this->to_string(ident, str, 0);

@@ -45,6 +45,8 @@ public:
   bool setString(std::string, std::string);
   bool setJSON(std::string, ujp::JSON &);
 
+  parserStates getParserReturn();
+
   friend Scanner;
   void flush();
   std::string to_string(int ident = N_SPACES) const;
